@@ -1,0 +1,7 @@
+PREFIX rt: <https://artbase.rhizome.org/prop/direct/>
+PREFIX r: <https://artbase.rhizome.org/entity/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?label WHERE {
+  r:Q1 rdfs:label ?label
+}

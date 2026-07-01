@@ -1,0 +1,10 @@
+prefix wd: <https://portal.mardi4nfdi.de/entity/>
+prefix wdt: <https://portal.mardi4nfdi.de/prop/direct/>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT * WHERE {
+  wd:Q2958445 wdt:P31 ?value .
+  ?value rdfs:label ?label 
+  FILTER (lang(?label) = 'en')
+}
+limit 10

@@ -49,13 +49,32 @@ $ rudof node -n wd:Q80 -e https://query.wikidata.org/sparql
 
 rudof is based on configuration files which define values for default properties like names of endpoints and namespace aliases. The default config file [is this one](https://github.com/rudof-project/rudof/blob/master/rudof_lib/src/default_config.toml).
 
-If you want to use your own endpoint and namespace aliases you can create your own config.toml. For example, this [rhizome_config.toml]() contains definitions for the rhizome wikibase instance. You can specify the config in the command line as:
+If you want to use your own endpoint and namespace aliases you can create your own config.toml. For example, this [rhizome_config.toml](https://github.com/rudof-project/rudof_wikibase_tutorial/blob/main/examples/rhizome_config.toml) contains some definitions for the rhizome wikibase instance. 
+You can specify the config in the command line as:
 
+```sh
+$ rudof node -n r:Q1 -c rhizome_config.toml -e rhizome
 ```
-rudof
+
+It is possible to use several wikibase instance declarations in the same config  file. For example, the [following file](https://github.com/rudof-project/rudof_wikibase_tutorial/blob/main/examples/wikibases_config.toml) contains several wikibase instances:
+
+```sh
+$ rudof node -n r:Q1 -c wikibases_config.toml -e rhizome
+```
+
+and now it is also possible to obtain information about a node in MARDI as:
+
+```sh
+$ rudof node -n wd:Q2958445 -c wikibases_config.toml -e mardi
 ```
 
 ## Querying Wikidata from rudof
+
+rudof has a command called `query` that can be used to run SPARQL queries:
+
+```sh
+rudof query -q mardi_query.sparql -c wikibases_config.toml -e mardi 
+```
 
 
 ## Information about a node in a different Wikibase instance
