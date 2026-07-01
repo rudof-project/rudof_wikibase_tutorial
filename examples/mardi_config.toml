@@ -1,0 +1,6 @@
+[rdf_data.endpoints.mardi]
+query_url = "https://query.portal.mardi4nfdi.de/sparql"
+
+[rdf_data.endpoints.mardi.prefixmap]
+wd = "https://portal.mardi4nfdi.de/entity/"
+wdt = "https://portal.mardi4nfdi.de/prop/direct/"

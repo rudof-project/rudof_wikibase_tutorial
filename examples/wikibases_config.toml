@@ -1,0 +1,13 @@
+[rdf_data.endpoints.rhizome]
+query_url = "https://query.artbase.rhizome.org/proxy/wdqs/bigdata/namespace/wdq/sparql"
+
+[rdf_data.endpoints.rhizome.prefixmap]
+r = "https://artbase.rhizome.org/entity/"
+rt = "https://artbase.rhizome.org/prop/direct/"
+
+[rdf_data.endpoints.mardi]
+query_url = "https://query.portal.mardi4nfdi.de/sparql"
+
+[rdf_data.endpoints.mardi.prefixmap]
+wd = "https://portal.mardi4nfdi.de/entity/"
+wdt = "https://portal.mardi4nfdi.de/prop/direct/"

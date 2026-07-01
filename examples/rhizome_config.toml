@@ -1,0 +1,6 @@
+[rdf_data.endpoints.rhizome]
+query_url = "https://query.artbase.rhizome.org/proxy/wdqs/bigdata/namespace/wdq/sparql"
+
+[rdf_data.endpoints.rhizome.prefixmap]
+r = "https://artbase.rhizome.org/entity/"
+rt = "https://artbase.rhizome.org/prop/direct/"
