@@ -1,0 +1,10 @@
+prefix wd: <http://www.wikidata.org/entity/>
+prefix wdt: <http://www.wikidata.org/prop/direct/>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT * WHERE {
+  wd:Q42 wdt:P31 ?value .
+  ?value rdfs:label ?label 
+  FILTER (lang(?label) = 'en')
+}
+limit 10

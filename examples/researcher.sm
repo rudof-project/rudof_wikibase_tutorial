@@ -1,0 +1,9 @@
+SPARQL """
+prefix wdt: <http://www.wikidata.org/prop/direct/>
+prefix wd: <http://www.wikidata.org/entity/>
+
+select ?researcher where { 
+    ?researcher wdt:P106 wd:Q1650915 
+} 
+LIMIT 20 OFFSET 10
+"""@<Researcher>

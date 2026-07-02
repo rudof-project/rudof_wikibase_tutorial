@@ -47,6 +47,9 @@ rudof contains some pre-defined names for SPARQL endpoints, but it is also possi
 $ rudof node -n wd:Q80 -e https://query.wikidata.org/sparql
 ```
 
+
+## Information about a node in a different Wikibase instance
+
 rudof is based on configuration files which define values for default properties like names of endpoints and namespace aliases. The default config file [is this one](https://github.com/rudof-project/rudof/blob/master/rudof_lib/src/default_config.toml).
 
 If you want to use your own endpoint and namespace aliases you can create your own config.toml. For example, this [rhizome_config.toml](https://github.com/rudof-project/rudof_wikibase_tutorial/blob/main/examples/rhizome_config.toml) contains some definitions for the rhizome wikibase instance. 
@@ -68,17 +71,82 @@ and now it is also possible to obtain information about a node in MARDI as:
 $ rudof node -n wd:Q2958445 -c wikibases_config.toml -e mardi
 ```
 
-## Querying Wikidata from rudof
+## Using rudof to run SPARQL queries
 
-rudof has a command called `query` that can be used to run SPARQL queries:
+rudof has a command called `query` that can be used to run SPARQL queries
 
+### Querying Wikidata
+
+```sh
+rudof query -q _query.sparql -e wikidata
+```
+
+
+### Querying a different wikibase instance
 ```sh
 rudof query -q mardi_query.sparql -c wikibases_config.toml -e mardi 
 ```
 
 
-## Information about a node in a different Wikibase instance
-
 ## Validating with an entity schema
+
+Wikidata (and Wikibase) provides Entity Schemas based on the [ShEx](https://shex.io/) language which can be used to validate items. 
+
+A directory of existing Wikidata entity schemas can be found [here](https://www.wikidata.org/wiki/Wikidata:Database_reports/EntitySchema_directory). 
+
+rudof contains a ShEx engine that can be used to validate items against an entity schema. 
+
+The command is `shex-validate` and it usually requires a shapemap which indicates which items to validate with which shapes in the entit schema. 
+
+For example, the following command validates `wd:Q42` as a human (entity schema [`E10`](https://www.wikidata.org/wiki/EntitySchema:E10)) using a SPARQL query that returns the item to be validated:
+
+```sh
+rudof shex-validate -s https://www.wikidata.org/wiki/Special:EntitySchemaText/E10 -m wikidata_shapemap1.sm -e wikidata
+```
+
+
+### Note about Entity schemas
+
+Currently, there 2 URIs for entity schemas in Wikibase: the HTML version, which is something like: 
+
+```
+https://portal.mardi4nfdi.de/wiki/EntitySchema:E5
+```
+
+and the raw version which is:  
+
+```
+https://portal.mardi4nfdi.de/wiki/Special:EntitySchemaText/E5
+```
+
+This is important because rudof needs the raw version of the entity schemas.
+
+### Example from Wikidata
+
+Wikidata 
+
+### Example from a Wikibase.cloud instance (MARDI)
+
+```sh
+rudof shex-validate -s https://portal.mardi4nfdi.de/wiki/Special:EntitySchemaText/E5 -m mardi_shapemap2.sm -c mardi_config.toml -e mardi
+```
+
+- The parameter `-s` (`--schema`) specifices the location of the raw entity schema 
+- The parameter `-m` (`--shapemap`) specifies the location of the shapemap. In this case, the shape map is a SPARQL query:
+- The parameter `-c` (`--config`) specifies the config file where the mardi endpoint URI is declared
+- The parameter `-e` (`--endpoint`) specifies the endpoint name
+
+```sparql
+prefix wd: <https://portal.mardi4nfdi.de/entity/>
+prefix wdt: <https://portal.mardi4nfdi.de/prop/direct/>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT * WHERE {
+  wd:Q2958445 wdt:P31 ?value .
+  ?value rdfs:label ?label 
+  FILTER (lang(?label) = 'en')
+}
+limit 10
+```
 
 

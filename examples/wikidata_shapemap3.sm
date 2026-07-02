@@ -1,0 +1,7 @@
+SPARQL """
+prefix wdt: <http://www.wikidata.org/prop/direct/>
+prefix wd: <http://www.wikidata.org/entity/>
+select ?person where {
+    ?person wdt:P40 wd:Q42
+}
+"""@<human>
